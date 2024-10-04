@@ -1,0 +1,9 @@
+
+html:has(.toggle__checkbox:checked) {
+    --color-backgrond:var(--color-black);
+    --color-text:var(--color-white);
+    --color-box-img:var(--color-green);
+    --color-link-bg:var(--color-green);
+    --color-gry:#080808;
+    --color-input-border:var(--color-white);
+}

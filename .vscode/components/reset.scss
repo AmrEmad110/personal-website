@@ -1,0 +1,25 @@
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: Poppins,sans-serif;
+}
+*,
+*::after , 
+*::before{
+    box-sizing: border-box;
+}
+a {
+    color: inherit;
+    display: inline-block;
+}
+button {
+    color: transparent;
+    border: none;
+    cursor: pointer;
+}
+ul,
+ol {
+    list-style: none;
+}
