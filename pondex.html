@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mindful - Your Daily Meditation Guide</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#6366f1',
+                        secondary: '#a5b4fc'
+                    },
+                    borderRadius: {
+                        'none': '0px',
+                        'sm': '4px',
+                        DEFAULT: '8px',
+                        'md': '12px',
+                        'lg': '16px',
+                        'xl': '20px',
+                        '2xl': '24px',
+                        '3xl': '32px',
+                        'full': '9999px',
+                        'button': '8px'
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .meditation-card:hover .play-button {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .play-button {
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+        .category-scroll::-webkit-scrollbar {
+            display: none;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+        }
+        .modal.active {
+            display: flex;
+        }
+    </style>
+</head>
+<body class="bg-white font-['Inter']">
+    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md z-50 border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16">
+                <div class="flex items-center">
+                    <a href="#" class="text-2xl font-['Pacifico'] text-primary">logo</a>
+                    <div class="hidden md:flex items-center space-x-8 ml-10">
+                        <a href="#" class="text-gray-900 hover:text-primary">Home</a>
+                        <a href="#" class="text-gray-900 hover:text-primary">Meditations</a>
+                        <a href="#" class="text-gray-900 hover:text-primary">Programs</a>
+                        <a href="#" class="text-gray-900 hover:text-primary">Profile</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="text-gray-900 hover:text-primary px-4 py-2 rounded-button cursor-pointer">Sign In</button>
+                    <button class="bg-primary text-white px-6 py-2 rounded-button hover:bg-primary/90 cursor-pointer">Register</button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="pt-16">
+        <section class="relative h-[600px] overflow-hidden">
+            <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('https://public.readdy.ai/ai/img_res/ce50cc4a912aa57037c6346f933e679a.jpg')"></div>
+            <div class="absolute inset-0 bg-gradient-to-r from-white/90 to-transparent"></div>
+            <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-full flex items-center">
+                <div class="max-w-xl">
+                    <h1 class="text-5xl font-bold text-gray-900 mb-6">Find Your Inner Peace</h1>
+                    <p class="text-xl text-gray-700 mb-8">Discover the transformative power of meditation. Join millions finding clarity, reducing stress, and improving sleep through guided practices.</p>
+                    <button class="bg-primary text-white px-8 py-4 rounded-button text-lg hover:bg-primary/90 cursor-pointer flex items-center space-x-2">
+                        <i class="ri-play-circle-line ri-xl"></i>
+                        <span>Start Meditation</span>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12">Featured Meditations</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div class="meditation-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="relative h-48">
+                            <img src="https://public.readdy.ai/ai/img_res/5186922e9332a3fab63579390f22971b.jpg" class="w-full h-full object-cover" alt="Meditation 1">
+                            <button class="play-button absolute inset-0 m-auto w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer">
+                                <i class="ri-play-fill ri-lg text-primary"></i>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-sm text-gray-500">15 min</span>
+                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                <span class="text-sm text-primary">Beginners</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Morning Mindfulness</h3>
+                            <p class="text-gray-600">Start your day with clarity and purpose through this gentle guided meditation.</p>
+                        </div>
+                    </div>
+
+                    <div class="meditation-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="relative h-48">
+                            <img src="https://public.readdy.ai/ai/img_res/c9e7c953d4728532ae2c05b1e38ee96a.jpg" class="w-full h-full object-cover" alt="Meditation 2">
+                            <button class="play-button absolute inset-0 m-auto w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer">
+                                <i class="ri-play-fill ri-lg text-primary"></i>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-sm text-gray-500">20 min</span>
+                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                <span class="text-sm text-primary">Sleep</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Deep Sleep Journey</h3>
+                            <p class="text-gray-600">Drift into peaceful sleep with this calming meditation designed for better rest.</p>
+                        </div>
+                    </div>
+
+                    <div class="meditation-card bg-white rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+                        <div class="relative h-48">
+                            <img src="https://public.readdy.ai/ai/img_res/43b5c66a5883ba9745c57b996ec34f69.jpg" class="w-full h-full object-cover" alt="Meditation 3">
+                            <button class="play-button absolute inset-0 m-auto w-12 h-12 bg-white rounded-full shadow-lg flex items-center justify-center cursor-pointer">
+                                <i class="ri-play-fill ri-lg text-primary"></i>
+                            </button>
+                        </div>
+                        <div class="p-6">
+                            <div class="flex items-center space-x-2 mb-2">
+                                <span class="text-sm text-gray-500">10 min</span>
+                                <span class="w-1 h-1 bg-gray-300 rounded-full"></span>
+                                <span class="text-sm text-primary">Stress Relief</span>
+                            </div>
+                            <h3 class="text-xl font-semibold text-gray-900 mb-2">Anxiety Release</h3>
+                            <p class="text-gray-600">Let go of stress and anxiety with this grounding meditation practice.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <h2 class="text-3xl font-bold text-gray-900 mb-12">Browse Categories</h2>
+                <div class="category-scroll flex space-x-6 overflow-x-auto pb-6">
+                    <div class="flex-none w-40">
+                        <button class="w-full aspect-square bg-purple-50 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-purple-100 transition-colors">
+                            <div class="w-12 h-12 flex items-center justify-center mb-4">
+                                <i class="ri-moon-line ri-2x text-primary"></i>
+                            </div>
+                            <span class="text-gray-900 font-medium">Sleep</span>
+                        </button>
+                    </div>
+                    <div class="flex-none w-40">
+                        <button class="w-full aspect-square bg-blue-50 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-blue-100 transition-colors">
+                            <div class="w-12 h-12 flex items-center justify-center mb-4">
+                                <i class="ri-mental-health-line ri-2x text-primary"></i>
+                            </div>
+                            <span class="text-gray-900 font-medium">Stress Relief</span>
+                        </button>
+                    </div>
+                    <div class="flex-none w-40">
+                        <button class="w-full aspect-square bg-green-50 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-green-100 transition-colors">
+                            <div class="w-12 h-12 flex items-center justify-center mb-4">
+                                <i class="ri-focus-3-line ri-2x text-primary"></i>
+                            </div>
+                            <span class="text-gray-900 font-medium">Focus</span>
+                        </button>
+                    </div>
+                    <div class="flex-none w-40">
+                        <button class="w-full aspect-square bg-yellow-50 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-yellow-100 transition-colors">
+                            <div class="w-12 h-12 flex items-center justify-center mb-4">
+                                <i class="ri-heart-pulse-line ri-2x text-primary"></i>
+                            </div>
+                            <span class="text-gray-900 font-medium">Anxiety</span>
+                        </button>
+                    </div>
+                    <div class="flex-none w-40">
+                        <button class="w-full aspect-square bg-pink-50 rounded-lg flex flex-col items-center justify-center cursor-pointer hover:bg-pink-100 transition-colors">
+                            <div class="w-12 h-12 flex items-center justify-center mb-4">
+                                <i class="ri-seedling-line ri-2x text-primary"></i>
+                            </div>
+                            <span class="text-gray-900 font-medium">Beginners</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                    <div>
+                        <h2 class="text-3xl font-bold text-gray-900 mb-6">Track Your Progress</h2>
+                        <p class="text-gray-600 mb-8">Stay motivated and build a consistent meditation practice with our progress tracking features.</p>
+                        <div class="grid grid-cols-3 gap-6">
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-primary mb-2">248</div>
+                                <div class="text-sm text-gray-600">Minutes Meditated</div>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-primary mb-2">12</div>
+                                <div class="text-sm text-gray-600">Day Streak</div>
+                            </div>
+                            <div class="bg-white p-6 rounded-lg text-center">
+                                <div class="text-3xl font-bold text-primary mb-2">28</div>
+                                <div class="text-sm text-gray-600">Sessions</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <img src="https://public.readdy.ai/ai/img_res/04c22153f2d8cf9086165969de432949.jpg" class="w-full rounded-lg shadow-lg" alt="Progress Tracking">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="bg-primary rounded-2xl overflow-hidden">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+                        <div class="p-12">
+                            <h2 class="text-3xl font-bold text-white mb-6">Download Our App</h2>
+                            <p class="text-white/90 mb-8">Take your meditation practice anywhere with our mobile app. Access hundreds of guided meditations, track your progress, and join our community.</p>
+                            <div class="flex space-x-4">
+                                <button class="bg-black text-white px-6 py-3 rounded-button flex items-center space-x-2 cursor-pointer hover:bg-black/90">
+                                    <i class="ri-apple-fill ri-lg"></i>
+                                    <span>App Store</span>
+                                </button>
+                                <button class="bg-black text-white px-6 py-3 rounded-button flex items-center space-x-2 cursor-pointer hover:bg-black/90">
+                                    <i class="ri-google-play-fill ri-lg"></i>
+                                    <span>Play Store</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="relative h-96 md:h-auto">
+                            <img src="https://public.readdy.ai/ai/img_res/bd0123c689f7e327f33b3bae2e6d3b6c.jpg" class="w-full h-full object-cover" alt="App Preview">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="py-20 bg-gray-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="max-w-xl mx-auto text-center">
+                    <h2 class="text-3xl font-bold text-gray-900 mb-6">Stay Connected</h2>
+                    <p class="text-gray-600 mb-8">Subscribe to our newsletter for meditation tips, new content updates, and exclusive offers.</p>
+                    <form class="flex space-x-4">
+                        <input type="email" placeholder="Enter your email" class="flex-1 px-4 py-3 rounded-button border-none focus:ring-2 focus:ring-primary">
+                        <button type="submit" class="bg-primary text-white px-6 py-3 rounded-button hover:bg-primary/90 cursor-pointer whitespace-nowrap">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-['Pacifico'] mb-4">logo</h3>
+                    <p class="text-gray-400">Your daily companion for mindfulness and meditation.</p>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">About Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Meditations</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Programs</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-semibold mb-4">Follow Us</h4>
+                    <div class="flex space-x-4">
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+                            <i class="ri-instagram-line"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+                            <i class="ri-twitter-x-line"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+                            <i class="ri-facebook-fill"></i>
+                        </a>
+                        <a href="#" class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-800 hover:bg-gray-700">
+                            <i class="ri-youtube-fill"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 text-center text-gray-400">
+                <p>&copy; 2025 Mindful. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <div class="modal" id="loginModal">
+        <div class="bg-white w-full max-w-md mx-4 rounded-lg shadow-xl" style="margin-top: 10vh;">
+            <div class="p-6">
+                <div class="flex justify-between items-center mb-6">
+                    <h3 class="text-2xl font-bold text-gray-900">Sign In</h3>
+                    <button class="text-gray-400 hover:text-gray-500" onclick="toggleModal('loginModal')">
+                        <i class="ri-close-line ri-lg"></i>
+                    </button>
+                </div>
+                <form class="space-y-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                        <input type="email" class="w-full px-4 py-2 rounded-button border-none bg-gray-50 focus:ring-2 focus:ring-primary" placeholder="Enter your email">
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
+                        <input type="password" class="w-full px-4 py-2 rounded-button border-none bg-gray-50 focus:ring-2 focus:ring-primary" placeholder="Enter your password">
+                    </div>
+                    <div class="flex items-center justify-between">
+                        <label class="flex items-center">
+                            <input type="checkbox" class="rounded text-primary focus:ring-primary">
+                            <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                        </label>
+                        <a href="#" class="text-sm text-primary hover:text-primary/90">Forgot password?</a>
+                    </div>
+                    <button type="submit" class="w-full bg-primary text-white py-2 rounded-button hover:bg-primary/90">Sign In</button>
+                </form>
+                <div class="mt-6 text-center text-sm text-gray-600">
+                    Don't have an account? <a href="#" class="text-primary hover:text-primary/90">Sign up</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function toggleModal(modalId) {
+            const modal = document.getElementById(modalId);
+            modal.classList.toggle('active');
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const signInButton = document.querySelector('button:contains("Sign In")');
+            if (signInButton) {
+                signInButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    toggleModal('loginModal');
+                });
+            }
+
+            const playButtons = document.querySelectorAll('.play-button');
+            playButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const meditationTitle = this.closest('.meditation-card').querySelector('h3').textContent;
+                    alert(`Starting meditation: ${meditationTitle}`);
+                });
+            });
+
+            const subscribeForm = document.querySelector('form');
+            subscribeForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = this.querySelector('input[type="email"]').value;
+                if (email) {
+                    alert('Thank you for subscribing!');
+                    this.reset();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
